@@ -41,14 +41,14 @@ func main() {
 		chat.ExitRoom(s, msg)
 	})
 
-	server.OnEvent("/", "makeroom", func(s socketio.Conn, msg string) {
+	server.OnEvent("/", "makeroom", func(s socketio.Conn, msg string) string {
 		log.Println("makeroom", s.ID())
-		chat.MakeRoom(s, msg)
+		return chat.MakeRoom(s, msg)
 	})
 
-	server.OnEvent("/", "editroom", func(s socketio.Conn, msg string) {
+	server.OnEvent("/", "editroom", func(s socketio.Conn, msg string) string {
 		log.Println("editroom", s.ID())
-		chat.EditRoom(s, msg)
+		return chat.EditRoom(s, msg)
 	})
 
 	server.OnEvent("/", "ban", func(s socketio.Conn, msg string) {

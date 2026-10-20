@@ -157,7 +157,12 @@
 
       function makeRoom() {
         var title = $("#title").val();
-        var max = $("#max").val();
+        var max = parseInt($("#max").val(), 10);
+
+        if (isNaN(max) || max <= 0) {
+          alert("최대 인원을 숫자로 입력해주세요");
+          return;
+        }
 
         var msg = {
           name: title,
@@ -166,7 +171,15 @@
         };
 
         socket.emit("makeroom", JSON.stringify(msg), function (data) {
-          console.log(data);
+          var msg = JSON.parse(data);
+          console.log(msg);
+
+          if (msg.status != 1) {
+            alert(msg.message);
+            return;
+          }
+
+          _room = msg.room;
         });
       }
 

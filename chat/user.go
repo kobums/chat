@@ -9,6 +9,9 @@ const (
 	NORMAL = 1
 )
 
+// WAIT_ROOM is the id of the lobby every user is in when not in a room.
+const WAIT_ROOM = 0
+
 type User struct {
 	Id       string
 	Loginid  string
