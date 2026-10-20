@@ -32,7 +32,7 @@ func main() {
 	})
 
 	server.OnEvent("/", "joinroom", func(s socketio.Conn, msg string) {
-		log.Println("joinroom", msg)
+		log.Println("joinroom", s.ID())
 		chat.JoinRoom(s, msg)
 	})
 
