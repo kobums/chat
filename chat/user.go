@@ -15,7 +15,7 @@ type User struct {
 	Nickname string
 	Status   int
 	Room     int
-	Socket   socketio.Conn
+	Socket   socketio.Conn `json:"-"`
 }
 
 func (c *User) SetStatus(id string, status int) {

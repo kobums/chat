@@ -30,6 +30,7 @@ func (c *Roomlist) Add(name string, max int, secret bool, password string, admin
 	room.Password = password
 	room.Admin = admin
 	room.Users = make(map[string]*User)
+	room.Banned = make(map[string]bool)
 	c.Items[id] = room
 
 	return id

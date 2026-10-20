@@ -48,7 +48,7 @@
       <div>
         <a href="javascript:connect()">Connect</a>
       </div>
-      <div><input type="text" id="loginid" /> <input type="text" id="password" /> <a href="javascript:login()">Login</a></div>
+      <div><input type="text" id="loginid" /> <input type="password" id="password" /> <a href="javascript:login()">Login</a></div>
       <div>
         <div>
           <a href="javascript:makeRoom()">Make Room</a>
@@ -130,6 +130,12 @@
         socket.emit("login", JSON.stringify(msg), function (data) {
           var msg = JSON.parse(data);
           console.log(msg);
+
+          if (msg.status != 1) {
+            _login = false;
+            alert(msg.message);
+            return;
+          }
 
           _id = msg.id;
           _room = msg.room;
