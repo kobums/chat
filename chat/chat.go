@@ -143,7 +143,7 @@ func (c *Chat) Login(so socketio.Conn, msg string) string {
 		response.Message = "아이디를 찾을수가 없습니다"
 	} else {
 		response.Status = 1
-		log.Println(item.Loginid, item.Password)
+		log.Println("login:", item.Loginid)
 
 		find := c.Userlist.FindByLoginid(item.Loginid)
 

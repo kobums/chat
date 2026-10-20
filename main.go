@@ -22,7 +22,7 @@ func main() {
 	})
 
 	server.OnEvent("/", "login", func(s socketio.Conn, msg string) string {
-		log.Println("login", msg)
+		log.Println("login", s.ID())
 		return chat.Login(s, msg)
 	})
 
@@ -42,12 +42,12 @@ func main() {
 	})
 
 	server.OnEvent("/", "makeroom", func(s socketio.Conn, msg string) {
-		log.Println("makeroom", msg)
+		log.Println("makeroom", s.ID())
 		chat.MakeRoom(s, msg)
 	})
 
 	server.OnEvent("/", "editroom", func(s socketio.Conn, msg string) {
-		log.Println("editroom", msg)
+		log.Println("editroom", s.ID())
 		chat.EditRoom(s, msg)
 	})
 
