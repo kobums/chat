@@ -27,8 +27,15 @@ func (c *Room) GetUsersCount() int {
 	return len(c.Users)
 }
 
+// IsFull reports whether the room has no free seat. Max <= 0 means unlimited.
+func (c *Room) IsFull() bool {
+	return c.Max > 0 && len(c.Users) >= c.Max
+}
+
+// Join adds the user to the room and makes it the user's current room.
 func (c *Room) Join(user *User) bool {
 	c.Users[user.Id] = user
+	user.Room = c.Id
 
 	return true
 }

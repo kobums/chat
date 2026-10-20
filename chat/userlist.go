@@ -2,11 +2,11 @@ package chat
 
 import socketio "github.com/googollee/go-socket.io"
 
+// Userlist is not safe for concurrent use on its own; every access goes
+// through Chat, which serializes it with Chat.mu.
 type Userlist struct {
 	Items map[string]*User
 }
-
-var _users Userlist
 
 func NewUserlist() *Userlist {
 	var userlist Userlist
@@ -25,7 +25,7 @@ func (c *Userlist) Add(id string, loginid string, nickname string, so socketio.C
 	user.Loginid = loginid
 	user.Nickname = nickname
 	user.Status = WAIT
-	user.Room = 0
+	user.Room = WAIT_ROOM
 	user.Socket = so
 	c.Items[id] = &user
 
@@ -33,9 +33,7 @@ func (c *Userlist) Add(id string, loginid string, nickname string, so socketio.C
 }
 
 func (c *Userlist) Remove(id string) {
-	if _, ok := c.Items[id]; ok {
-		delete(c.Items, id)
-	}
+	delete(c.Items, id)
 }
 
 func (c *Userlist) Find(id string) *User {
